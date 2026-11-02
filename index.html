@@ -522,7 +522,6 @@ h2.money{color:var(--ok)}
   <div class="logo"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".35"/><circle cx="12" cy="12" r="5.5" stroke="currentColor" stroke-opacity=".35"/><path d="M12 12 L12 2 A10 10 0 0 1 21.5 9 Z" fill="#0099FF" fill-opacity=".55"/><circle cx="16.5" cy="7.5" r="1.4" fill="#0099FF"/></svg>Radar<small id="upd"></small></div>
   <label class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input id="q" type="search" placeholder="Buscar evento, cidade, artista" aria-label="Buscar"></label>
   <button class="navb" id="selNav">Seleção</button>
-  <button class="navb" id="howNav">Como calculo</button>
 </div></header>
 
 <section class="hero" aria-label="Radar de Eventos">
@@ -532,7 +531,7 @@ h2.money{color:var(--ok)}
     <h1 class="word" id="word" aria-label="Radar"><span>R</span><span>A</span><span>D</span><span>A</span><span>R</span></h1>
     <div class="lede">
       <p id="lede">Os eventos do Brasil que valem a sua lente, com quanto você deve faturar em cada um.</p>
-      <div class="cta"><a class="pill solid" href="#lista">Ver eventos</a><button class="pill selp" id="selHero">Seleção<b id="selN"></b></button><button class="pill" id="howHero">Como calculo</button></div>
+      <div class="cta"><a class="pill solid" href="#lista">Ver eventos</a><button class="pill selp" id="selHero">Seleção<b id="selN"></b></button></div>
     </div>
     <div class="kpis" id="kpis"></div>
   </div>
@@ -771,7 +770,7 @@ function renderBoards(){
   ${S.fo==='reg'?`<div class="fpanel"><div class="tiles t-reg">${reg}</div><div class="fact">${clr(S.r1,'todas','r1')}</div></div>`:''}
   ${S.fo==='cat'?`<div class="fpanel"><div class="tiles t-cat">${cat}</div><div class="fact">${clr(S.c1,'todos','c1')}</div></div>`:''}
   ${S.fo==='gen'&&showGen?`<div class="fpanel"><div class="fsub">Shows e festivais</div><div class="tiles t-gen">${gen}</div><div class="fact">${clr(S.g1,'todos','g1')}</div></div>`:''}
-  ${S.fo==='cls'?`<div class="fpanel"><div class="tiles t-cls">${cls}</div><div class="fact">${clr(S.k1,'todas','k1')}<button data-how="1">Como classifico</button></div></div>`:''}</section>`;
+  ${S.fo==='cls'?`<div class="fpanel"><div class="tiles t-cls">${cls}</div><div class="fact">${clr(S.k1,'todas','k1')}</div></div>`:''}</section>`;
 }
 function renderCtrl(vs){
   $('ctrl').innerHTML=`<span class="seg" role="group" aria-label="Agrupar">${[['data','Por data'],['fds','Por fim de semana']].map(([k,l])=>`<button data-grp="${k}" aria-pressed="${S.grp===k}">${l}</button>`).join('')}</span>
@@ -990,23 +989,7 @@ function bindPrev(e){
   const ch=$('pvCh'); if(ch) ch.addEventListener('input',()=>upd({chuva:ch.value===''?null:Number(ch.value)}));
   const r=$('pvRst'); if(r) r.onclick=()=>upd({},true);
 }
-function renderHow(){
-  $('layer').innerHTML=`<div class="veil2" id="v2"></div><aside class="panel crit" role="dialog" aria-modal="true" aria-label="Como calculo"><div class="ph"><span class="kd"></span><button id="pX">Fechar</button></div>
-    <div class="ps"><h4>Previsão de ganho</h4><p>A previsão parte da cota: público por dia dividido pela equipe. O ganho por dia cresce com a cota, mas cada vez mais devagar (R$ 28 × cota<sup>0,65</sup>), e para em R$ 4.500. A curva foi ajustada com o seu histórico na Fotop: 117 dias de evento, com o Caixa somado (Barretos ~R$ 2.900/dia com cota de 1.250; Time Warp ~R$ 2.200 com 670; Expo Artur ~R$ 840 com 160; Lolla 2026 ~R$ 990 com 213 fotógrafos). Vale para quem fica entre os primeiros do ranking, como você costuma ficar.</p>
-  <p>Ajustes pelo tipo: rodeio +10% (vende mais por foto); micareta −5%; show −15% (público preso no palco ou na arquibancada); festival com mais de 60 mil por dia −25% (o público se espalha, como no Lolla e no Rock in Rio). Pelo potencial de venda de fotos do evento, que já leva em conta o perfil de público: 5 = +15%, 4 = sem ajuste, 3 = −15%, 2 = −30%, 1 = −45%. Evento gratuito −20%; foto a R$ 16,90 −10%. Comissão diferente de 50% muda o valor na mesma proporção. Evento de 3 dias ou mais perde 10% pelo domingo e dias fracos; cada dia de chuva rende ~20% de um dia seco.</p>
-  <p>Cenários: conservador = 65% do base; otimista = 140%. Viagem: na capital, Uber; até 150 km, bate e volta; até 900 km, ônibus e hospedagem a R$ 180; acima disso, avião e hospedagem a R$ 200.</p>
-  <p>A conta parte de uma equipe de 15 fotógrafos, a média que costumamos levar. Dá pra mudar em cada evento. Preço sugerido: R$ 29,90 com pacote para eletrônica, festival, micareta, réveillon e perfil B ou acima; R$ 19,90 progressivo para rodeio grande; R$ 14,90 progressivo para expo regional; R$ 16,90 para evento gratuito.</p>
-  <p>Veredito: Vale quando sobram R$ 1.000 ou mais por dia depois da viagem e o conservador ainda paga a viagem; Vale se quando sobram de R$ 500 a R$ 1.000; abaixo disso, Não vale.</p></div>
-  <div class="ps"><h4>Fins de semana, combo e tempo</h4><p>Próximos fins de semana: cada cartão junta os eventos de segunda a domingo e mostra o que mais sobra por dia depois da viagem. Quando mais de um evento vale no mesmo fim de semana, o cartão avisa para você escolher.</p>
-  <p>Combo de viagem: para eventos a mais de 150 km de SP, procuro outro evento até 250 km de distância (estrada estimada) e até 3 dias antes ou depois. A viagem juntos conta a distância maior, as noites dos dois e R$ 0,50 por km entre as cidades. Mostro o combo quando ele deixa mais dinheiro que ir só ao evento.</p>
-  <p>Tempo: previsão do Open-Meteo para eventos ao ar livre dos próximos dias. A soma das chances de chuva vira os “dias de chuva” do cálculo (por exemplo, dois dias com 50% contam como 1 dia). Se você preencher os dias de chuva à mão, vale o seu número.</p></div>
-  <div class="ps"><h4>Contato</h4><p>Instagram, WhatsApp, e-mail e site são os canais comerciais públicos da produtora, marca ou casa de cada evento. Ao abrir um deles, o evento passa para Contatado. A mensagem pronta pode ser editada em cada evento.</p></div>
-  <div class="ps"><h4>Perfil de público (poder de compra)</h4>${CLS.map(k=>`<div class="ln"><b style="color:${CLSC[k]}">${k}</b><p><strong>${esc(CLSL[k])}.</strong> ${esc(CLSD[k])}</p></div>`).join('')}</div>
-  <div class="ps"><h4>Fama</h4>${[5,4,3,2,1].map(n=>`<div class="ln">${meter(n)}<p>${esc(FAMAL[n])}</p></div>`).join('')}</div>
-  <div class="ps"><h4>Público</h4><p>O número é o público esperado por dia ou noite, não a lotação máxima. Para casas e estádios, aplico uma ocupação típica pela força da atração (estádio com nome de primeira linha enche 75% a 95%; artista de nicho fica em 25% a 40%). Totais de temporada divulgados pelo organizador são divididos pelos dias. Rodeios e festas do interior ficam limitados pelo tamanho da cidade.</p></div>
-  <div class="ps"><h4>Potencial de venda de fotos</h4><p>O perfil pesa mais que o tamanho: um evento grande e popular vende menos foto que um menor com público de maior renda. Somam: micareta com abadá, festival de vários dias, réveillon pago acima de 3 mil pessoas, open air premium. Subtraem: show em casa fechada, casa pequena, festa noturna comum, plateia sentada. Tetos: festa gratuita no máximo 2, perfil B/C e C no máximo 3, plateia sentada no máximo 2, público abaixo de mil no máximo 2, rodeios e expos do interior no máximo 3.</p></div></aside>`;
-  $('v2').onclick=closeP; $('pX').onclick=closeP;
-}
+function renderHow(){}
 async function savePipe(id,patch,quiet){
   if(!S.db||S.ro) return; const cur=S.pipe[id]||{status:'novo',nota:''}; const next={...cur,...patch,id,atualizado:today()}; S.pipe[id]=next; selSync();
   if(!quiet){ renderList(); renderHero(); renderPipe(); if(S.open) renderPanel(); }
